@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="TristanVivaldy 2172032">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>We Love Programming!</title>
+</head>
+<style>
+    body {
+        background-color: lightsalmon;
+    }
+    .text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 1.5em;
+        font-weight:bold;
+    }
+    .speed {
+        position: absolute;
+        top: 90%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        padding: 5px 20px;
+        background-color: rgba(0, 0, 0, 0.1)
+    }
+    #number {
+        padding: 3px 0px;
+        padding-left: 10px;
+        width: 30px;
+        background-color: lightsalmon;
+        border:none;
+    }
+</style>
+<body>
+    <div class="text" id="txt"></div>
+    <div class="speed">Speed:<input type="number" name="" id="number" value="1" min="1" max="10"></div>
+    <script>
+        $(document).ready(function(){
+            let speed=200;
+            let k = 1;
+            let tulisan = "We Love Programming!";
+            function cek(){
+            let v = document.querySelector("#number").value;
+            if (v == 1){
+                speed=200;
+            }
+            else if (v == 2) {
+                speed=180;
+            }
+            else if (v == 3) {
+                speed=160;
+            }
+            else if (v == 4) {
+                speed=140;
+            }
+            else if (v == 5) {
+                speed=120;
+            }
+            else if (v == 6) {
+                speed=100;
+            }
+            else if (v == 7) {
+                speed=80;
+            }
+            else if (v == 8) {
+                speed=60;
+            }
+            else if (v == 9) {
+                speed=40;
+            }
+            else if (v == 10) {
+                speed=20;
+            }
+        }
+            myinterval = setInterval(tulisulang, speed)
+            function tulisulang(){
+                let tulis = tulisan.slice(0,k);
+                setTimeout(function(){$(".text").html(tulis)}, 500);
+                console.log(speed)
+                k++
+                if(k>tulisan.length){
+                    k=1;
+                }
+            }
+            
+            $(":input").bind('keyup mouseup', function () {
+                cek()
+                clearInterval(myinterval);
+                myinterval = setInterval(tulisulang, speed)
+                });
+        
+        }
+        );
+    </script>
+</body>
+</html>

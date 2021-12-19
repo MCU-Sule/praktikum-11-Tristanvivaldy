@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="TristanVivaldy 2172032">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Rock, Paper, Scissors</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    .container {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 5px;
+    }
+    .kotak {
+        width: 50px;
+        height: 50px;
+        border: 2px solid black;
+        font-size: 1.5em;
+        text-align: center;
+    }
+    .log {
+        width: 518px;
+        height: 80px;
+        border: 1px solid black;
+        margin-top: 20px;
+        padding:10px;
+        overflow-x:hidden;
+    }
+    .pilihan {
+        display: flex;
+    }
+    .click {
+        margin:auto;
+        margin-top: 10px;
+        border: 1px solid black;
+        background-color: transparent;
+        width: 60px;
+        height: 60px;
+    }
+    .click:hover {
+        background-color: black;
+        color: white;
+    }
+</style>
+<body>
+    <div class="container">
+        <table cellpadding="0" cellspacing="0">
+    <script>
+        let id = 1;
+        for(k=0;k<2;k++){
+            document.write("<tr>");
+                for (i=1;i<=10;i++){
+                    document.write("<td class='kotak' id='box"+id+"'></td>");
+                    id++
+                };
+            document.write("</tr>")
+        };
+        $("#box1").html("P");
+        $("#box11").html("E");
+    </script>
+        </table>
+
+        <div class="log"></div>
+        <div class="pilihan">
+            <button class="click" id="batu" value="Batu">Batu</button>
+            <button class="click" id="gunting" value="Gunting">Gunting</button>
+            <button class="click" id="kertas" value="Kertas">Kertas</button>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            const pilihan = ["Batu", "Gunting", "Kertas"]
+            let random;
+            let hasil;
+            let p1 = 1;
+            let p2 = 11;
+            function opponenturn(){
+                random = Math.floor(Math.random()*3);
+                hasil = pilihan[random];
+            }
+            function cek(){
+                let player = document.getElementById("box10").innerHTML;
+                let computer = document.getElementById("box20").innerHTML;
+                if(player == "P"){
+                    if (confirm("You Win, Try Again?")) {
+                        $("#box"+p1).html("");
+                        $("#box"+p2).html("");
+                        $("#box1").html("P");
+                        $("#box11").html("E");
+                        $(".log").html("");
+                        p1=1;
+                        p2=11;
+                    }
+                }
+                else if (computer == "E"){
+                    if (confirm("You Lose, Try Again?")) {
+                        $("#box"+p1).html("");
+                        $("#box"+p2).html("");
+                        $("#box1").html("P");
+                        $("#box11").html("E");
+                        $(".log").html("");
+                        p1=1;
+                        p2=11;
+                    }
+                }
+            }
+            $("#batu").click(function(){
+                let ambil = document.getElementById("batu").value;
+                opponenturn();
+                if (p1 < 10 ) {
+                    if (p2 < 20) {
+                        if(hasil == "Batu"){
+                            $(".log").append(ambil+"(User) ketemu "+hasil+"(Com), Draw <br>")
+                }
+                        else if(hasil == "Gunting"){
+                            $(".log").append(ambil+"(User) ketemu "+hasil+"(Com), Player Maju <br>")
+                            $("#box"+p1).html("");
+                            p1++
+                            $("#box"+p1).html("P");
+                }
+                        else if(hasil == "Kertas"){
+                            $(".log").append(ambil+"(User) ketemu "+hasil+"(Com), Musuh Maju <br>")
+                            $("#box"+p2).html("");
+                            p2++
+                            $("#box"+p2).html("E");
+                }
+            }
+            }
+                cek();
+            })
+            $("#gunting").click(function(){
+                let ambil = document.getElementById("gunting").value;
+                opponenturn();
+                if (p1 < 10 ) {
+                    if(p2 < 20){
+                        if(hasil == "Gunting"){
+                            $(".log").append(ambil+"(User) ketemu "+hasil+"(Com), Draw <br>")
+                }
+                        else if(hasil == "Kertas"){
+                            $(".log").append(ambil+"(User) ketemu "+hasil+"(Com), Player Maju <br>")
+                            $("#box"+p1).html("");
+                            p1++
+                            $("#box"+p1).html("P");
+                }
+                        else if(hasil == "Batu"){
+                            $(".log").append(ambil+"(User) ketemu "+hasil+"(Com), Musuh Maju <br>")
+                            $("#box"+p2).html("");
+                            p2++
+                            $("#box"+p2).html("E");
+                }
+            }
+            }
+                cek()
+            })
+            $("#kertas").click(function(){
+                let ambil = document.getElementById("kertas").value;
+                opponenturn();
+                if (p1 < 10 ) {
+                    if (p2 < 20){
+                        if(hasil == "Kertas"){
+                            $(".log").append(ambil+"(User) ketemu "+hasil+"(Com), Draw <br>")
+                }
+                        else if(hasil == "Batu"){
+                            $(".log").append(ambil+"(User) ketemu "+hasil+"(Com), Player Maju <br>")
+                            $("#box"+p1).html("");
+                            p1++
+                            $("#box"+p1).html("P");
+                }
+                        else if(hasil == "Gunting"){
+                            $(".log").append(ambil+"(User) ketemu "+hasil+"(Com), Musuh Maju <br>")
+                            $("#box"+p2).html("");
+                            p2++
+                            $("#box"+p2).html("E");
+                }
+            }
+            }
+                cek()
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="TristanVivaldy 2172032">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Key</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin:0;
+    }
+    body {
+        background-color: #E1E1E1;
+    }
+    .container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: 600px;
+        height: 300px;
+        display:flex;
+    }
+    .box {
+        position: relative;
+        background-color: rgba(255, 255, 255, 0.4);
+        margin: auto;
+        width: 150px;
+        height: 80px;
+        border:2px solid rgba(0, 0, 0, 0.2);
+        font-size: 1.5em;
+        text-align: center;
+        line-height: 80px;
+        font-family:cursive;
+        font-weight: bold;
+    }
+    .judul {
+        position: absolute;
+        top:-55px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        font-size: 0.7em;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    .start {
+        background-color: #E1E1E1;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+    }
+    .press {
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.4);
+        border:2px solid rgba(0, 0, 0, 0.2);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 300px;
+        height: 50px;
+        font-size: 1.2em;
+        font-weight:600;
+        line-height: 50px;
+        text-align: center;
+
+    }
+</style>
+<body>
+    <div class="start">
+        <div class="press">Press any key to get the keyCode</div>
+    </div>
+    <div class=container>
+        <div class="box" id="box1"><div class="judul">event.key</div></div>
+        <div class="box" id="box2"><div class="judul">event.keyCode</div></div>
+        <div class="box" id="box3"><div class="judul">event.code</div></div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $(document).keypress(function(){
+                $(".start").hide();
+            })
+            $(document).keydown(function(event){
+                $("#box1").html(event.key+"<div class='judul'>event.key</div>");
+                $("#box2").html(event.keyCode+"<div class='judul'>event.keyCode</div>");
+                $("#box3").html(event.code+"<div class='judul'>event.code</div>");
+            })
+        })
+    </script>
+</body>
+</html>

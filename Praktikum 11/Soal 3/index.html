@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="TristanVivaldy 2172032">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Puzzle</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    .container {
+        margin-top: 5px;
+    }
+    table {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    td {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #76bfd4;
+        background-color: rgba(216, 255, 255, 0.3);
+    }
+    .puzzle {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 400px;
+        height: 100px;
+        display: flex;
+        margin-top: 25px;
+    }
+    .kepingan {
+        width: 100px;
+        height: 100px;
+        display: inline-flex;
+    }
+    .restart {
+        margin-top: 10px;
+        position: relative;
+        padding: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .restart {
+        background-color: #fda078;
+    }
+    .author {
+        text-align: center;
+        position:relative;
+        background-color: #81cfeb;
+    }
+    .onthebox img {
+        width: 100px;
+        height: 100px;
+    }
+    td img {
+        vertical-align: bottom;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<body>
+    <script>
+        let piece = ["<img src='assets/1.jpg' id='keping1' alt='gambar1'>", "<img src='assets/2.jpg' id='keping2' alt='gambar2'>", "<img src='assets/3.jpg' id='keping3' alt='gambar3'>", "<img src='assets/4.jpg' id='keping4' alt='gambar4'>"]
+        let benar = 0;
+    </script>
+    <div class="container">
+        <table cellpadding="1" cellspacing="1">
+            <tr>
+                <td id="kotak1" class="onthebox" ondrop="drop(event)" ondragover="allowdrag(event)"></td>
+                <td id="kotak2" class="onthebox" ondrop="drop(event)" ondragover="allowdrag(event)"></td>
+            </tr>
+            <tr>
+                <td id="kotak3" class="onthebox" ondrop="drop(event)" ondragover="allowdrag(event)"></td>
+                <td id="kotak4" class="onthebox" ondrop="drop(event)" ondragover="allowdrag(event)"></td>
+            </tr>
+        </table>
+        <div class="puzzle">
+            <div id="piece1" class="kepingan" draggable="true" ondragstart="start(event)"></div>
+            <div id="piece2" class="kepingan" draggable="true" ondragstart="start(event)"></div>
+            <div id="piece3" class="kepingan" draggable="true" ondragstart="start(event)"></div>
+            <div id="piece4" class="kepingan" draggable="true" ondragstart="start(event)"></div>
+        </div>
+        <button class="restart" onclick="restart()">Restart Game</button>
+    </div>
+    <div class="author">Created by Tristan Vivaldy (2172032) &copy;2021 </div>
+    <script>
+        $(document).ready(function(){
+                while(true){
+                    let random = Math.floor(Math.random()*4)
+                    for (i=1;i<=4;i++){
+                        while(true){ 
+                        if (piece.includes(random) == false ) {
+                            piece.push(random);
+                            $("#piece"+i).html(piece[random])
+                            break
+                        }
+                        else {
+                            random = Math.floor(Math.random()*4)
+                        }
+                    }
+                }
+                break
+                }
+        })
+        function restart(){
+                for (i=1;i<=4;i++){
+                    $("#kotak"+i).html("")
+                }
+                piece = ["<img src='assets/1.jpg' id='keping1' alt='gambar1'>", "<img src='assets/2.jpg' id='keping2' alt='gambar2'>", "<img src='assets/3.jpg' id='keping3' alt='gambar3'>", "<img src='assets/4.jpg' id='keping4' alt='gambar4'>"]
+                benar = 0
+                while(true){
+                    let random = Math.floor(Math.random()*4)
+                    for (i=1;i<=4;i++){
+                        while(true){ 
+                        if (piece.includes(random) == false ) {
+                            piece.push(random);
+                            $("#piece"+i).html(piece[random])
+                            break
+                        }
+                        else {
+                            random = Math.floor(Math.random()*4)
+                        }
+                    }
+                }
+                break
+                }
+            }
+        function start(event) {
+            event.dataTransfer.setData("Image", event.target.id);
+            event.dataTransfer.setData("source", event.target.src);
+        }
+
+        function allowdrag(event){
+                event.preventDefault();
+            }
+
+        function drop(event){
+                event.preventDefault();
+                let data = event.dataTransfer.getData("Image");
+                let a = document.createElement("img");
+                a.src = event.dataTransfer.getData("source")
+                console.log(a)
+                // a.src = event.dataTransfer.getData("Image")
+                console.log(data)
+                if (data == "keping1"){
+                    event.target.appendChild(a);
+                    console.log(document.getElementById("kotak1").innerHTML)
+                    if (document.getElementById("kotak1").innerHTML == "") {
+                        alert("Wrong Block")
+                        event.target.removeChild(a);
+                        console.log(document.getElementById("kotak1"))
+                    }
+                    else {
+                        event.target.removeChild(a);
+                        benar++
+                        if (benar == 4) {
+                        alert("You Win")
+                    }
+                        event.target.appendChild(document.getElementById(data))
+                    }
+                }
+                if (data == "keping2"){
+                    event.target.appendChild(a);
+                    console.log(document.getElementById("kotak2").innerHTML)
+                    if (document.getElementById("kotak2").innerHTML == "") {
+                        alert("Wrong Block")
+                        event.target.removeChild(a);
+                        console.log(document.getElementById("kotak2"))
+                    }
+                    else {
+                        event.target.removeChild(a);
+                        benar++
+                        if (benar == 4) {
+                        alert("You Win")
+                    }
+                        event.target.appendChild(document.getElementById(data))
+                    }
+                }
+                if (data == "keping3"){
+                    event.target.appendChild(a);
+                    console.log(document.getElementById("kotak4").innerHTML)
+                    if (document.getElementById("kotak4").innerHTML == "") {
+                        alert("Wrong Block")
+                        event.target.removeChild(a);
+                        console.log(document.getElementById("kotak4"))
+                    }
+                    else {
+                        event.target.removeChild(a);
+                        benar++
+                        if (benar == 4) {
+                        alert("You Win")
+                    }
+                        event.target.appendChild(document.getElementById(data))
+                    }
+                }
+                if (data == "keping4"){
+                    event.target.appendChild(a);
+                    console.log(document.getElementById("kotak3").innerHTML)
+                    if (document.getElementById("kotak3").innerHTML == "") {
+                        alert("Wrong Block")
+                        event.target.removeChild(a);
+                        if (benar == 4) {
+                        alert("You Win")
+                    }
+                        console.log(document.getElementById("kotak3"))
+                    }
+                    else {
+                        event.target.removeChild(a);
+                        benar++
+                        if (benar == 4) {
+                        alert("You Win")
+                    }
+                        event.target.appendChild(document.getElementById(data))
+                    }
+                }
+        console.log(benar)
+            }
+    </script>
+</body>
+</html>
